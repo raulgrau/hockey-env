@@ -428,7 +428,7 @@ class HockeyEnv(gym.Env, EzPickle):
         player.linearVelocity[1] = 0
         force[1] = -vel[1]
 
-    return force
+    return np.asarray(force, dtype=float)
 
   def _apply_translation_action_with_max_speed(self, player, action, max_speed, is_player_one):
     velocity = np.asarray(player.linearVelocity)
@@ -477,7 +477,7 @@ class HockeyEnv(gym.Env, EzPickle):
       player.angularDamping = 10.0
     else:
       player.angularDamping = 2.0
-    player.ApplyTorque(torque, True)
+    player.ApplyTorque(float(torque), True)
 
   def _get_obs(self):
     obs = np.hstack([
